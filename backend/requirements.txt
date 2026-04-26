@@ -1,0 +1,9 @@
+flask
+flask-cors
+flask-sqlalchemy
+requests
+python-dotenv
+Pillow
+imagehash
+google-generativeai
+gunicorn

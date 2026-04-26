@@ -1,0 +1,26 @@
+# Railway Multi-Service Configuration
+# This file defines how Railway builds and deploys both the Frontend and Backend.
+
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+# Default deployment settings
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
+
+# Backend Service Definition
+[services.backend]
+source = "/backend"
+healthcheckPath = "/api/violations"
+# Nixpacks will automatically detect requirements.txt and create the build.
+# We override the start command to use Gunicorn for production.
+startCommand = "gunicorn -b 0.0.0.0:$PORT app:app"
+
+# Frontend Service Definition
+[services.frontend]
+source = "/"
+# Nixpacks will automatically detect package.json and Vite.
+# It will run `npm run build` and then we use `serve` to host the static files.
+startCommand = "npm run start"

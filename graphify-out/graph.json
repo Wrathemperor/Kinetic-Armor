@@ -1,0 +1,700 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "eslint.config.js",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\eslint.config.js",
+      "source_location": "L1",
+      "id": "d_project_goog_eslint_config_js",
+      "community": 7,
+      "norm_label": "eslint.config.js"
+    },
+    {
+      "label": "vite.config.js",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\vite.config.js",
+      "source_location": "L1",
+      "id": "d_project_goog_vite_config_js",
+      "community": 8,
+      "norm_label": "vite.config.js"
+    },
+    {
+      "label": "app.py",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L1",
+      "id": "d_project_goog_backend_app_py",
+      "community": 0,
+      "norm_label": "app.py"
+    },
+    {
+      "label": "upload_asset()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L30",
+      "id": "app_upload_asset",
+      "community": 0,
+      "norm_label": "upload_asset()"
+    },
+    {
+      "label": "mock_crawler_scan()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L59",
+      "id": "app_mock_crawler_scan",
+      "community": 0,
+      "norm_label": "mock_crawler_scan()"
+    },
+    {
+      "label": "get_violations()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L112",
+      "id": "app_get_violations",
+      "community": 0,
+      "norm_label": "get_violations()"
+    },
+    {
+      "label": "Mock endpoint that a crawler would hit when it finds an image on the web.",
+      "file_type": "rationale",
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L60",
+      "id": "app_rationale_60",
+      "community": 0,
+      "norm_label": "mock endpoint that a crawler would hit when it finds an image on the web."
+    },
+    {
+      "label": "models.py",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\models.py",
+      "source_location": "L1",
+      "id": "d_project_goog_backend_models_py",
+      "community": 0,
+      "norm_label": "models.py"
+    },
+    {
+      "label": "Organization",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\models.py",
+      "source_location": "L7",
+      "id": "models_organization",
+      "community": 0,
+      "norm_label": "organization"
+    },
+    {
+      "label": "Asset",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\models.py",
+      "source_location": "L13",
+      "id": "models_asset",
+      "community": 0,
+      "norm_label": "asset"
+    },
+    {
+      "label": "Violation",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\models.py",
+      "source_location": "L21",
+      "id": "models_violation",
+      "community": 0,
+      "norm_label": "violation"
+    },
+    {
+      "label": "ai.py",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\ai.py",
+      "source_location": "L1",
+      "id": "d_project_goog_backend_services_ai_py",
+      "community": 3,
+      "norm_label": "ai.py"
+    },
+    {
+      "label": "evaluate_violation()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\ai.py",
+      "source_location": "L1",
+      "id": "ai_evaluate_violation",
+      "community": 3,
+      "norm_label": "evaluate_violation()"
+    },
+    {
+      "label": "Mocked Claude API Integration.     In a real app, we would send the image and co",
+      "file_type": "rationale",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\ai.py",
+      "source_location": "L2",
+      "id": "ai_rationale_2",
+      "community": 3,
+      "norm_label": "mocked claude api integration.     in a real app, we would send the image and co"
+    },
+    {
+      "label": "fingerprint.py",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\fingerprint.py",
+      "source_location": "L1",
+      "id": "d_project_goog_backend_services_fingerprint_py",
+      "community": 2,
+      "norm_label": "fingerprint.py"
+    },
+    {
+      "label": "generate_phash()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\fingerprint.py",
+      "source_location": "L4",
+      "id": "fingerprint_generate_phash",
+      "community": 2,
+      "norm_label": "generate_phash()"
+    },
+    {
+      "label": "calculate_distance()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\fingerprint.py",
+      "source_location": "L18",
+      "id": "fingerprint_calculate_distance",
+      "community": 2,
+      "norm_label": "calculate_distance()"
+    },
+    {
+      "label": "Generate a perceptual hash for an image file.     Tolerates compression, resizin",
+      "file_type": "rationale",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\fingerprint.py",
+      "source_location": "L5",
+      "id": "fingerprint_rationale_5",
+      "community": 2,
+      "norm_label": "generate a perceptual hash for an image file.     tolerates compression, resizin"
+    },
+    {
+      "label": "Calculate Hamming distance between two hash strings.",
+      "file_type": "rationale",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\fingerprint.py",
+      "source_location": "L19",
+      "id": "fingerprint_rationale_19",
+      "community": 2,
+      "norm_label": "calculate hamming distance between two hash strings."
+    },
+    {
+      "label": "mock_crawler.py",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\scripts\\mock_crawler.py",
+      "source_location": "L1",
+      "id": "d_project_goog_scripts_mock_crawler_py",
+      "community": 4,
+      "norm_label": "mock_crawler.py"
+    },
+    {
+      "label": "run_crawler()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\scripts\\mock_crawler.py",
+      "source_location": "L4",
+      "id": "mock_crawler_run_crawler",
+      "community": 4,
+      "norm_label": "run_crawler()"
+    },
+    {
+      "label": "App.jsx",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\App.jsx",
+      "source_location": "L1",
+      "id": "d_project_goog_src_app_jsx",
+      "community": 5,
+      "norm_label": "app.jsx"
+    },
+    {
+      "label": "App()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\App.jsx",
+      "source_location": "L6",
+      "id": "app_app",
+      "community": 5,
+      "norm_label": "app()"
+    },
+    {
+      "label": "main.jsx",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\main.jsx",
+      "source_location": "L1",
+      "id": "d_project_goog_src_main_jsx",
+      "community": 9,
+      "norm_label": "main.jsx"
+    },
+    {
+      "label": "Dashboard.jsx",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\app\\Dashboard.jsx",
+      "source_location": "L1",
+      "id": "d_project_goog_src_pages_app_dashboard_jsx",
+      "community": 6,
+      "norm_label": "dashboard.jsx"
+    },
+    {
+      "label": "Dashboard()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\app\\Dashboard.jsx",
+      "source_location": "L4",
+      "id": "dashboard_dashboard",
+      "community": 6,
+      "norm_label": "dashboard()"
+    },
+    {
+      "label": "Landing.jsx",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L1",
+      "id": "d_project_goog_src_pages_marketing_landing_jsx",
+      "community": 1,
+      "norm_label": "landing.jsx"
+    },
+    {
+      "label": "NavBar()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L7",
+      "id": "landing_navbar",
+      "community": 1,
+      "norm_label": "navbar()"
+    },
+    {
+      "label": "RotatingScrollIndicator()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L34",
+      "id": "landing_rotatingscrollindicator",
+      "community": 1,
+      "norm_label": "rotatingscrollindicator()"
+    },
+    {
+      "label": "Hero()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L71",
+      "id": "landing_hero",
+      "community": 1,
+      "norm_label": "hero()"
+    },
+    {
+      "label": "SkewedMarquee()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L98",
+      "id": "landing_skewedmarquee",
+      "community": 1,
+      "norm_label": "skewedmarquee()"
+    },
+    {
+      "label": "ServiceList()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L137",
+      "id": "landing_servicelist",
+      "community": 1,
+      "norm_label": "servicelist()"
+    },
+    {
+      "label": "CTAAndFooter()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L166",
+      "id": "landing_ctaandfooter",
+      "community": 1,
+      "norm_label": "ctaandfooter()"
+    },
+    {
+      "label": "Landing()",
+      "file_type": "code",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L197",
+      "id": "landing_landing",
+      "community": 1,
+      "norm_label": "landing()"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_src": "d_project_goog_backend_app_py",
+      "_tgt": "app_upload_asset",
+      "source": "d_project_goog_backend_app_py",
+      "target": "app_upload_asset",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_src": "d_project_goog_backend_app_py",
+      "_tgt": "app_mock_crawler_scan",
+      "source": "d_project_goog_backend_app_py",
+      "target": "app_mock_crawler_scan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L112",
+      "weight": 1.0,
+      "_src": "d_project_goog_backend_app_py",
+      "_tgt": "app_get_violations",
+      "source": "d_project_goog_backend_app_py",
+      "target": "app_get_violations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L42",
+      "weight": 1.0,
+      "_src": "app_upload_asset",
+      "_tgt": "fingerprint_generate_phash",
+      "source": "app_upload_asset",
+      "target": "fingerprint_generate_phash"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_src": "app_upload_asset",
+      "_tgt": "models_asset",
+      "source": "app_upload_asset",
+      "target": "models_asset"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L60",
+      "weight": 1.0,
+      "_src": "app_rationale_60",
+      "_tgt": "app_mock_crawler_scan",
+      "source": "app_mock_crawler_scan",
+      "target": "app_rationale_60",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_src": "app_mock_crawler_scan",
+      "_tgt": "fingerprint_generate_phash",
+      "source": "app_mock_crawler_scan",
+      "target": "fingerprint_generate_phash"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L86",
+      "weight": 1.0,
+      "_src": "app_mock_crawler_scan",
+      "_tgt": "fingerprint_calculate_distance",
+      "source": "app_mock_crawler_scan",
+      "target": "fingerprint_calculate_distance"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L93",
+      "weight": 1.0,
+      "_src": "app_mock_crawler_scan",
+      "_tgt": "ai_evaluate_violation",
+      "source": "app_mock_crawler_scan",
+      "target": "ai_evaluate_violation"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L94",
+      "weight": 1.0,
+      "_src": "app_mock_crawler_scan",
+      "_tgt": "models_violation",
+      "source": "app_mock_crawler_scan",
+      "target": "models_violation"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "_src": "app_rationale_60",
+      "_tgt": "models_organization",
+      "source": "app_rationale_60",
+      "target": "models_organization",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "_src": "app_rationale_60",
+      "_tgt": "models_asset",
+      "source": "app_rationale_60",
+      "target": "models_asset",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "D:\\Project\\gOOG\\backend\\app.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "_src": "app_rationale_60",
+      "_tgt": "models_violation",
+      "source": "app_rationale_60",
+      "target": "models_violation",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\models.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_src": "d_project_goog_backend_models_py",
+      "_tgt": "models_organization",
+      "source": "d_project_goog_backend_models_py",
+      "target": "models_organization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\models.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_src": "d_project_goog_backend_models_py",
+      "_tgt": "models_asset",
+      "source": "d_project_goog_backend_models_py",
+      "target": "models_asset",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\models.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_src": "d_project_goog_backend_models_py",
+      "_tgt": "models_violation",
+      "source": "d_project_goog_backend_models_py",
+      "target": "models_violation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\ai.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_src": "d_project_goog_backend_services_ai_py",
+      "_tgt": "ai_evaluate_violation",
+      "source": "d_project_goog_backend_services_ai_py",
+      "target": "ai_evaluate_violation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\ai.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_src": "ai_rationale_2",
+      "_tgt": "ai_evaluate_violation",
+      "source": "ai_evaluate_violation",
+      "target": "ai_rationale_2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\fingerprint.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "d_project_goog_backend_services_fingerprint_py",
+      "_tgt": "fingerprint_generate_phash",
+      "source": "d_project_goog_backend_services_fingerprint_py",
+      "target": "fingerprint_generate_phash",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\fingerprint.py",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_src": "d_project_goog_backend_services_fingerprint_py",
+      "_tgt": "fingerprint_calculate_distance",
+      "source": "d_project_goog_backend_services_fingerprint_py",
+      "target": "fingerprint_calculate_distance",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\fingerprint.py",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_src": "fingerprint_rationale_5",
+      "_tgt": "fingerprint_generate_phash",
+      "source": "fingerprint_generate_phash",
+      "target": "fingerprint_rationale_5",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\backend\\services\\fingerprint.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_src": "fingerprint_rationale_19",
+      "_tgt": "fingerprint_calculate_distance",
+      "source": "fingerprint_calculate_distance",
+      "target": "fingerprint_rationale_19",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\scripts\\mock_crawler.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "d_project_goog_scripts_mock_crawler_py",
+      "_tgt": "mock_crawler_run_crawler",
+      "source": "d_project_goog_scripts_mock_crawler_py",
+      "target": "mock_crawler_run_crawler",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\src\\App.jsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "d_project_goog_src_app_jsx",
+      "_tgt": "app_app",
+      "source": "d_project_goog_src_app_jsx",
+      "target": "app_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\app\\Dashboard.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "d_project_goog_src_pages_app_dashboard_jsx",
+      "_tgt": "dashboard_dashboard",
+      "source": "d_project_goog_src_pages_app_dashboard_jsx",
+      "target": "dashboard_dashboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_src": "d_project_goog_src_pages_marketing_landing_jsx",
+      "_tgt": "landing_navbar",
+      "source": "d_project_goog_src_pages_marketing_landing_jsx",
+      "target": "landing_navbar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L34",
+      "weight": 1.0,
+      "_src": "d_project_goog_src_pages_marketing_landing_jsx",
+      "_tgt": "landing_rotatingscrollindicator",
+      "source": "d_project_goog_src_pages_marketing_landing_jsx",
+      "target": "landing_rotatingscrollindicator",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L71",
+      "weight": 1.0,
+      "_src": "d_project_goog_src_pages_marketing_landing_jsx",
+      "_tgt": "landing_hero",
+      "source": "d_project_goog_src_pages_marketing_landing_jsx",
+      "target": "landing_hero",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L98",
+      "weight": 1.0,
+      "_src": "d_project_goog_src_pages_marketing_landing_jsx",
+      "_tgt": "landing_skewedmarquee",
+      "source": "d_project_goog_src_pages_marketing_landing_jsx",
+      "target": "landing_skewedmarquee",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L137",
+      "weight": 1.0,
+      "_src": "d_project_goog_src_pages_marketing_landing_jsx",
+      "_tgt": "landing_servicelist",
+      "source": "d_project_goog_src_pages_marketing_landing_jsx",
+      "target": "landing_servicelist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L166",
+      "weight": 1.0,
+      "_src": "d_project_goog_src_pages_marketing_landing_jsx",
+      "_tgt": "landing_ctaandfooter",
+      "source": "d_project_goog_src_pages_marketing_landing_jsx",
+      "target": "landing_ctaandfooter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Project\\gOOG\\src\\pages\\marketing\\Landing.jsx",
+      "source_location": "L197",
+      "weight": 1.0,
+      "_src": "d_project_goog_src_pages_marketing_landing_jsx",
+      "_tgt": "landing_landing",
+      "source": "d_project_goog_src_pages_marketing_landing_jsx",
+      "target": "landing_landing",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": []
+}
