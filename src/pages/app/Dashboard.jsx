@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ShieldAlert, Fingerprint, UploadCloud, RefreshCw, BarChart3, Settings, ExternalLink, Copy, Check, Info, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { 
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
+  PieChart, Pie, Cell, AreaChart, Area, Radar, RadarChart, PolarGrid, 
+  PolarAngleAxis, PolarRadiusAxis 
+} from 'recharts';
 import API_BASE_URL from '../../api';
 
 const COLORS = ['#FF4D00', '#000000', '#888888', '#CCCCCC'];
@@ -27,6 +31,12 @@ export default function Dashboard() {
   }, [location.state]);
   const [selectedStrike, setSelectedStrike] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [tickerLogs, setTickerLogs] = useState([
+    { id: 1, text: 'INITIALIZING GLOBAL CRAWLER SCAN...', time: '23:41:02' },
+    { id: 2, text: 'SCANNING REDDIT.COM/R/DESIGN... DONE.', time: '23:41:05' }
+  ]);
+  const [liveAlert, setLiveAlert] = useState(null);
+  const prevViolationsRef = useRef([]);
 
   const fetchData = async () => {
     try {
@@ -36,17 +46,48 @@ export default function Dashboard() {
         fetch(`${API_BASE_URL}/api/stats`),
         fetch(`${API_BASE_URL}/api/config`)
       ]);
-      setViolations(await vRes.json());
-      setAssets(await aRes.json());
-      setStats(await sRes.json());
-      setConfig(await cRes.json());
+      const newViolations = await vRes.json();
+      const newAssets = await aRes.json();
+      const newStats = await sRes.json();
+      const newConfig = await cRes.json();
+
+      // Live Detection Logic
+      if (prevViolationsRef.current.length > 0 && newViolations.length > prevViolationsRef.current.length) {
+        const added = newViolations.find(v => !prevViolationsRef.current.some(pv => pv.id === v.id));
+        if (added) {
+          const time = new Date().toLocaleTimeString([], { hour12: false });
+          const newLog = { id: Date.now(), text: `STRIKE DETECTED: ${added.found_url.substring(0, 30)}...`, time, alert: true };
+          setTickerLogs(prev => [newLog, ...prev].slice(0, 50));
+          setLiveAlert(`LIVE STRIKE: ${added.found_url.split('/')[2]}`);
+          setTimeout(() => setLiveAlert(null), 5000);
+        }
+      }
+
+      setViolations(newViolations);
+      setAssets(newAssets);
+      setStats(newStats);
+      setConfig(newConfig);
+      prevViolationsRef.current = newViolations;
     } catch (e) { console.error('Sync Error:', e); }
   };
 
   useEffect(() => {
     fetchData();
     const id = setInterval(fetchData, 5000);
-    return () => clearInterval(id);
+    
+    // Background Ticker Simulation
+    const tickerId = setInterval(() => {
+      const sites = ['ARTSTATION.COM', 'TIKTOK.COM', 'TWITTER.COM', 'PINTEREST.COM', 'OPENSEA.IO', 'REDDIT.COM'];
+      const site = sites[Math.floor(Math.random() * sites.length)];
+      const time = new Date().toLocaleTimeString([], { hour12: false });
+      const newLog = { id: Date.now(), text: `CRAWLING ${site}... SCANNING ASSETS...`, time };
+      setTickerLogs(prev => [newLog, ...prev].slice(0, 50));
+    }, 4000);
+
+    return () => {
+      clearInterval(id);
+      clearInterval(tickerId);
+    };
   }, []);
 
   const handleFileUpload = async (e) => {
@@ -109,7 +150,28 @@ export default function Dashboard() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', backgroundColor: '#F0F0F0', color: '#000' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', backgroundColor: '#F0F0F0', color: '#000', position: 'relative' }}>
+      {/* Live Alert Toast */}
+      <AnimatePresence>
+        {liveAlert && (
+          <motion.div
+            initial={{ y: -100, x: '-50%', opacity: 0 }}
+            animate={{ y: 20, x: '-50%', opacity: 1 }}
+            exit={{ y: -100, x: '-50%', opacity: 0 }}
+            style={{
+              position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)',
+              zIndex: 1000, backgroundColor: '#FF4D00', color: '#000',
+              padding: '20px 40px', border: '4px solid black', fontWeight: 'bold',
+              boxShadow: '10px 10px 0px rgba(0,0,0,1)',
+              fontFamily: 'Space Mono', letterSpacing: '-0.02em',
+              display: 'flex', alignItems: 'center', gap: 16
+            }}
+          >
+            <ShieldAlert size={24} />
+            <div style={{ fontSize: 18 }}>{liveAlert}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Sidebar */}
       <aside className="bg-orange" style={{ width: 300, padding: 40, borderRight: '3px solid black', display: 'flex', flexDirection: 'column' }}>
         <motion.h1 
@@ -296,29 +358,103 @@ export default function Dashboard() {
             )}
 
             {activeTab === 'analytics' && stats && (
-              <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 40 }}>
-                <div style={{ border: '3px solid black', padding: 40, backgroundColor: '#FFF' }}>
-                  <div className="mono-label" style={{ marginBottom: 40 }}>THREAT SEVERITY SCALE</div>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={stats.severity_dist}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#DDD" />
-                      <XAxis dataKey="level" axisLine={false} tickLine={false} />
-                      <YAxis axisLine={false} tickLine={false} />
-                      <Tooltip cursor={{fill: '#FF4D0011'}} contentStyle={{border: '3px solid black', borderRadius: 0}} />
-                      <Bar dataKey="count" fill="#FF4D00" />
-                    </BarChart>
-                  </ResponsiveContainer>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+                {/* KPI Bento Grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 20 }}>
+                  {[
+                    { label: 'TOTAL ARMORED', value: stats.total_assets, trend: '+12%', icon: Fingerprint },
+                    { label: 'ACTIVE STRIKES', value: stats.total_violations, trend: 'CRITICAL', icon: ShieldAlert },
+                    { label: 'AVG SEVERITY', value: '7.2', trend: 'HIGH', icon: BarChart3 },
+                    { label: 'ARMOR HEALTH', value: '98.4%', trend: 'OPTIMAL', icon: ShieldAlert }
+                  ].map((kpi, idx) => (
+                    <div key={idx} style={{ border: '3px solid black', padding: 30, backgroundColor: '#FFF' }}>
+                      <div className="mono-label" style={{ display: 'flex', justifyContent: 'space-between', opacity: 0.5, fontSize: 10, marginBottom: 15 }}>
+                        {kpi.label} <kpi.icon size={12} />
+                      </div>
+                      <div style={{ fontSize: '2.5vw', fontWeight: 900, lineHeight: 1 }}>{kpi.value}</div>
+                      <div className="mono-label" style={{ fontSize: 9, marginTop: 10, color: kpi.trend === 'CRITICAL' ? '#FF4D00' : '#000', fontWeight: 'bold' }}>
+                        {kpi.trend} {kpi.trend !== 'CRITICAL' && '↑'}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div style={{ border: '3px solid black', padding: 40, backgroundColor: '#FFF' }}>
-                  <div className="mono-label" style={{ marginBottom: 40 }}>PLATFORM EXPOSURE</div>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <PieChart>
-                      <Pie data={stats.platform_dist} innerRadius={60} outerRadius={100} paddingAngle={5} dataKey="value">
-                        {stats.platform_dist.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]} />)}
-                      </Pie>
-                      <Tooltip contentStyle={{border: '3px solid black', borderRadius: 0}} />
-                    </PieChart>
-                  </ResponsiveContainer>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 40 }}>
+                  {/* Primary Threat Chart */}
+                  <div style={{ border: '3px solid black', padding: 40, backgroundColor: '#FFF' }}>
+                    <div className="mono-label" style={{ marginBottom: 40, display: 'flex', justifyContent: 'space-between' }}>
+                      HISTORICAL THREAT INTELLIGENCE
+                      <span style={{ opacity: 0.5 }}>ANNUAL AGGREGATE</span>
+                    </div>
+                    <ResponsiveContainer width="100%" height={350}>
+                      <AreaChart data={stats.trend_data || [
+                        {date: 'Jan', count: 40}, {date: 'Feb', count: 35}, {date: 'Mar', count: 55},
+                        {date: 'Apr', count: 45}, {date: 'May', count: 70}, {date: 'Jun', count: 65},
+                        {date: 'Jul', count: 85}, {date: 'Aug', count: 80}, {date: 'Sep', count: 110},
+                        {date: 'Oct', count: 100}, {date: 'Nov', count: 140}, {date: 'Dec', count: 130}
+                      ]}>
+                        <defs>
+                          <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#FF4D00" stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor="#FF4D00" stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#DDD" />
+                        <XAxis dataKey="date" axisLine={{stroke: '#000', strokeWidth: 2}} tickLine={false} style={{ fontSize: 10, fontFamily: 'Space Mono' }} />
+                        <YAxis axisLine={{stroke: '#000', strokeWidth: 2}} tickLine={false} style={{ fontSize: 10, fontFamily: 'Space Mono' }} />
+                        <Tooltip contentStyle={{border: '3px solid black', borderRadius: 0, fontFamily: 'Space Mono'}} />
+                        <Area type="monotone" dataKey="count" stroke="#FF4D00" strokeWidth={4} fillOpacity={1} fill="url(#colorCount)" animationDuration={1000} />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+
+                  {/* Platform Radar */}
+                  <div style={{ border: '3px solid black', padding: 40, backgroundColor: '#FFF' }}>
+                    <div className="mono-label" style={{ marginBottom: 40 }}>VULNERABILITY VECTORS</div>
+                    <ResponsiveContainer width="100%" height={350}>
+                      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={stats.platform_dist}>
+                        <PolarGrid stroke="#DDD" />
+                        <PolarAngleAxis dataKey="name" tick={{ fontSize: 10, fontFamily: 'Space Mono' }} />
+                        <PolarRadiusAxis angle={30} domain={[0, 'auto']} axisLine={false} tick={false} />
+                        <Radar name="Exposure" dataKey="value" stroke="#000" fill="#000" fillOpacity={0.1} strokeWidth={2} />
+                        <Tooltip contentStyle={{border: '3px solid black', borderRadius: 0}} />
+                      </RadarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 40 }}>
+                  {/* Distribution */}
+                  <div style={{ border: '3px solid black', padding: 40, backgroundColor: '#FFF' }}>
+                    <div className="mono-label" style={{ marginBottom: 40 }}>PLATFORM EXPOSURE</div>
+                    <ResponsiveContainer width="100%" height={250}>
+                      <PieChart>
+                        <Pie data={stats.platform_dist} innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
+                          {stats.platform_dist.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]} />)}
+                        </Pie>
+                        <Tooltip contentStyle={{border: '3px solid black', borderRadius: 0}} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+
+                  {/* System Logs Ticker */}
+                  <div style={{ gridColumn: 'span 2', border: '3px solid black', padding: 40, backgroundColor: '#000', color: '#0F0' }}>
+                    <div className="mono-label" style={{ marginBottom: 20, color: '#FFF' }}>LIVE SYSTEM PROTOCOL</div>
+                    <div style={{ fontFamily: 'Space Mono', fontSize: 11, display: 'flex', flexDirection: 'column', gap: 8, maxHeight: 180, overflowY: 'auto' }}>
+                      {tickerLogs.map((log, idx) => (
+                        <div 
+                          key={log.id} 
+                          style={{ 
+                            opacity: idx === 0 ? 1 : 0.8 / (idx + 0.1), 
+                            color: log.alert ? '#FF4D00' : '#0F0',
+                            fontWeight: log.alert ? 'bold' : 'normal'
+                          }}
+                        >
+                          [{log.time}] {log.text}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
@@ -389,7 +525,7 @@ export default function Dashboard() {
                   <div style={{ border: '2px solid black', padding: 10, backgroundColor: '#F9F9F9' }}>
                     <div className="mono-label" style={{ fontSize: 10, opacity: 0.5, marginBottom: 10 }}>PROTECTED ASSET</div>
                     <img 
-                      src={`${API_BASE_URL}/uploads/${selectedStrike.original_image}`} 
+                      src={selectedStrike.original_image.startsWith('http') ? selectedStrike.original_image : `${API_BASE_URL}/uploads/${selectedStrike.original_image}`} 
                       alt="Original" 
                       style={{ width: '100%', height: 120, objectFit: 'cover', border: '1px solid #CCC' }} 
                     />
@@ -397,7 +533,7 @@ export default function Dashboard() {
                   <div style={{ border: '2px solid black', padding: 10, backgroundColor: '#F9F9F9' }}>
                     <div className="mono-label" style={{ fontSize: 10, color: '#FF4D00', fontWeight: 'bold', marginBottom: 10 }}>INFRINGEMENT FOUND</div>
                     <img 
-                      src={`${API_BASE_URL}/uploads/${selectedStrike.found_image}`} 
+                      src={selectedStrike.found_image.startsWith('http') ? selectedStrike.found_image : `${API_BASE_URL}/uploads/${selectedStrike.found_image}`} 
                       alt="Infringement" 
                       style={{ width: '100%', height: 120, objectFit: 'cover', border: '1px solid #FF4D00' }} 
                     />

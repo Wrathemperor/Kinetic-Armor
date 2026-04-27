@@ -81,7 +81,7 @@ function Hero() {
       
       <div className="border-t-2-black" style={{ display: 'flex', padding: '0 40px', alignItems: 'center', height: '160px' }}>
         <div style={{ flex: 1 }} className="mono-label">
-          BASED IN <br/> NEW YORK
+          BASED IN <br/> INDIA
         </div>
         <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
           <RotatingScrollIndicator />

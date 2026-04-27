@@ -7,3 +7,6 @@ Pillow
 imagehash
 google-generativeai
 gunicorn
+google-cloud-storage
+google-cloud-firestore
+psycopg2-binary
