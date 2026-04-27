@@ -462,10 +462,19 @@ export default function Dashboard() {
             {activeTab === 'vault' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 {assets.map(a => (
-                  <div key={a.id} style={{ display: 'flex', padding: 30, border: '3px solid black', backgroundColor: '#FFF', alignItems: 'center' }}>
-                    <div style={{ width: 80 }}><div className="mono-label" style={{ opacity: 0.3 }}>ID</div><div style={{ fontWeight: 'bold' }}>#{a.id}</div></div>
-                    <div style={{ flex: 1 }}><div className="mono-label" style={{ opacity: 0.3 }}>PROTECTED ASSET</div><div style={{ fontWeight: 'bold' }}>{a.file_path.split(/[\\/]/).pop()}</div></div>
-                    <div style={{ flex: 1 }}><div className="mono-label" style={{ opacity: 0.3 }}>FINGERPRINT (pHash)</div><div className="mono-label" style={{ fontSize: 12 }}>{a.phash}</div></div>
+                  <div key={a.id} style={{ display: 'grid', gridTemplateColumns: '180px 1fr 1fr', gap: '30px', padding: 30, border: '3px solid black', backgroundColor: '#FFF', alignItems: 'center' }}>
+                    <div style={{ overflow: 'hidden' }}>
+                      <div className="mono-label" style={{ opacity: 0.3 }}>ID</div>
+                      <div style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>#{a.id}</div>
+                    </div>
+                    <div style={{ overflow: 'hidden' }}>
+                      <div className="mono-label" style={{ opacity: 0.3 }}>PROTECTED ASSET</div>
+                      <div style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.file_path.split(/[\\/]/).pop()}</div>
+                    </div>
+                    <div style={{ overflow: 'hidden' }}>
+                      <div className="mono-label" style={{ opacity: 0.3 }}>FINGERPRINT (pHash)</div>
+                      <div className="mono-label" style={{ fontSize: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.phash}</div>
+                    </div>
                   </div>
                 ))}
               </div>
