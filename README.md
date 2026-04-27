@@ -1,10 +1,11 @@
 # 🛡️ Kinetic Armor
 ### Advanced AI-Powered Copyright Protection & Perceptual Monitoring
-**[Live Demo](https://kinetic-armor.web.app)** | **[Backend API](https://kinetic-backend-22665471971.us-central1.run.app)**
+
+**🔗 [Live Production Site](https://kinetic-armor.web.app)** | **⚡ [Backend API](https://kinetic-backend-22665471971.us-central1.run.app)**
 
 ---
 
-![Kinetic Armor Social Preview](https://github.com/Wrathemperor/Kinetic-Armor/raw/master/public/social-preview.png)
+![Kinetic Armor Social Preview](public/social-preview.png)
 
 ## 📌 Overview
 Kinetic Armor is a state-of-the-art asset protection engine designed for the modern creator economy. Built for the **Google Solution Challenge 2026**, it leverages **Perceptual Hashing (pHash)** and **Generative AI** to detect, analyze, and mitigate copyright infringement in real-time across the web.
