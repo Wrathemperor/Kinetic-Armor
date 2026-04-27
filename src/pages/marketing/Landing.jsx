@@ -331,7 +331,7 @@ function CTAAndFooter() {
         <div style={{ display: 'flex', gap: '32px' }} className="mono-label">
           <a href="#">INSTAGRAM</a>
           <a href="#">TWITTER</a>
-          <a href="#">GITHUB</a>
+          <a href="https://github.com/Wrathemperor/Kinetic-Armor" target="_blank" rel="noreferrer">GITHUB</a>
         </div>
       </footer>
     </>
