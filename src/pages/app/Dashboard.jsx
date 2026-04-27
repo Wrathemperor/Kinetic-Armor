@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShieldAlert, Fingerprint, UploadCloud, RefreshCw, BarChart3, Settings, ExternalLink, Copy, Check, Info, Search } from 'lucide-react';
+import { ShieldAlert, Fingerprint, UploadCloud, RefreshCw, BarChart3, Settings, ExternalLink, Copy, Check, Info, Search, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
@@ -21,6 +21,7 @@ export default function Dashboard() {
   const [searchResults, setSearchResults] = useState(null);
   const [searchError, setSearchError] = useState(null);
   const [uploadStatus, setUploadStatus] = useState(null);
+  const [sendingNotice, setSendingNotice] = useState(false);
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(location.state?.tab || 'strikes');
 
@@ -143,10 +144,33 @@ export default function Dashboard() {
     } catch (e) { console.error(e); }
   };
 
+  const deleteAsset = async (id) => {
+    if (!window.confirm('PERMANENTLY REMOVE THIS ASSET AND ALL ASSOCIATED VIOLATIONS?')) return;
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/assets/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setAssets(prev => prev.filter(a => a.id !== id));
+        fetchData(); // Refresh violations too
+      }
+    } catch (e) { console.error('Delete Error:', e); }
+  };
+
   const copyDMCA = (text) => {
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleSendNotice = async (id) => {
+    setSendingNotice(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/violations/${id}/send`, { method: 'POST' });
+      if (res.ok) {
+        setSelectedStrike(prev => ({ ...prev, status: 'sent' }));
+        fetchData();
+      }
+    } catch (e) { console.error(e); }
+    setSendingNotice(false);
   };
 
   return (
@@ -271,7 +295,9 @@ export default function Dashboard() {
                       <div style={{ fontSize: '1.5vw', fontWeight: 'bold', marginBottom: 16, wordBreak: 'break-all' }}>{v.found_url}</div>
                       <div style={{ display: 'flex', gap: 12 }}>
                         <span className="mono-label" style={{ backgroundColor: '#000', color: '#FFF', padding: '4px 12px', fontSize: 10 }}>{v.context}</span>
-                        <span className="mono-label" style={{ border: '1px solid #000', padding: '4px 12px', fontSize: 10 }}>OPEN CASE</span>
+                        <span className="mono-label" style={{ border: '1px solid #000', padding: '4px 12px', fontSize: 10, color: v.status === 'sent' ? '#00A86B' : '#000', borderColor: v.status === 'sent' ? '#00A86B' : '#000' }}>
+                          {v.status === 'sent' ? 'NOTICE SENT' : 'OPEN CASE'}
+                        </span>
                       </div>
                     </div>
 
@@ -462,7 +488,14 @@ export default function Dashboard() {
             {activeTab === 'vault' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 {assets.map(a => (
-                  <div key={a.id} style={{ display: 'grid', gridTemplateColumns: '180px 1fr 1fr', gap: '30px', padding: 30, border: '3px solid black', backgroundColor: '#FFF', alignItems: 'center' }}>
+                  <div key={a.id} style={{ display: 'grid', gridTemplateColumns: '100px 180px 1fr 1fr 60px', gap: '30px', padding: 30, border: '3px solid black', backgroundColor: '#FFF', alignItems: 'center' }}>
+                    <div style={{ width: 80, height: 80, border: '1px solid black', backgroundColor: '#eee', overflow: 'hidden' }}>
+                      <img 
+                        src={a.file_path.startsWith('http') ? a.file_path : `${API_BASE_URL}/uploads/${a.file_path}`} 
+                        alt="Vault Asset" 
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                      />
+                    </div>
                     <div style={{ overflow: 'hidden' }}>
                       <div className="mono-label" style={{ opacity: 0.3 }}>ID</div>
                       <div style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>#{a.id}</div>
@@ -474,6 +507,16 @@ export default function Dashboard() {
                     <div style={{ overflow: 'hidden' }}>
                       <div className="mono-label" style={{ opacity: 0.3 }}>FINGERPRINT (pHash)</div>
                       <div className="mono-label" style={{ fontSize: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.phash}</div>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <button 
+                        onClick={() => deleteAsset(a.id)}
+                        className="mono-label hover-invert"
+                        style={{ padding: '8px', border: '2px solid black', backgroundColor: 'transparent', cursor: 'pointer', color: '#FF4D00' }}
+                        title="Delete Asset"
+                      >
+                        <Trash2 size={18} />
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -561,7 +604,7 @@ export default function Dashboard() {
 
               <div style={{ border: '2px solid black', padding: 30, backgroundColor: '#F9F9F9', position: 'relative' }}>
                 <div className="mono-label" style={{ opacity: 0.5, marginBottom: 16 }}>AI DRAFTED DMCA NOTICE</div>
-                <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'Space Mono', fontSize: 11, lineHeight: 1.6, opacity: 0.8 }}>
+                <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all', fontFamily: 'Space Mono', fontSize: 11, lineHeight: 1.6, opacity: 0.8 }}>
                   {selectedStrike.draft_dmca}
                 </pre>
                 <button 
@@ -573,8 +616,17 @@ export default function Dashboard() {
               </div>
 
               <div style={{ marginTop: 40 }}>
-                <button className="bg-black text-white" style={{ width: '100%', padding: 20, fontFamily: 'Space Mono', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}>
-                  ISSUE TAKEDOWN STRIKE
+                <button 
+                  onClick={() => handleSendNotice(selectedStrike.id)}
+                  disabled={sendingNotice || selectedStrike.status === 'sent'}
+                  className="bg-black text-white" 
+                  style={{ 
+                    width: '100%', padding: 20, fontFamily: 'Space Mono', fontWeight: 'bold', 
+                    border: 'none', cursor: (sendingNotice || selectedStrike.status === 'sent') ? 'not-allowed' : 'pointer',
+                    backgroundColor: selectedStrike.status === 'sent' ? '#00A86B' : '#000'
+                  }}
+                >
+                  {sendingNotice ? 'DISPATCHING...' : selectedStrike.status === 'sent' ? 'NOTICE DISPATCHED' : 'ISSUE TAKEDOWN STRIKE'}
                 </button>
               </div>
             </motion.div>

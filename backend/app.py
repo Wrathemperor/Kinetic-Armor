@@ -235,6 +235,39 @@ def get_stats():
         "trend_data": trend_data
     })
 
+@app.route('/api/assets/<asset_id>', methods=['DELETE'])
+def delete_asset(asset_id):
+    try:
+        asset_ref = db_fs.collection('assets').document(asset_id)
+        asset_doc = asset_ref.get()
+        if not asset_doc.exists:
+            return jsonify({"error": "Asset not found"}), 404
+        
+        # Delete associated violations
+        violations = db_fs.collection('violations').where('asset_id', '==', asset_id).get()
+        for v in violations:
+            v.reference.delete()
+            
+        asset_ref.delete()
+        return jsonify({"message": "Asset and associated violations deleted successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/violations/<violation_id>/send', methods=['POST'])
+def send_notice(violation_id):
+    try:
+        v_ref = db_fs.collection('violations').document(violation_id)
+        if not v_ref.get().exists:
+            return jsonify({"error": "Violation not found"}), 404
+        
+        v_ref.update({
+            'status': 'sent',
+            'sent_at': firestore.SERVER_TIMESTAMP
+        })
+        return jsonify({"message": "DMCA Notice dispatched to legal department and hosting provider."})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/api/config', methods=['GET', 'POST'])
 def handle_config():
     config_ref = db_fs.collection('config').document('system')
