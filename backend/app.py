@@ -165,8 +165,8 @@ def get_violations():
         asset_doc = db_fs.collection('assets').document(v['asset_id']).get()
         asset = asset_doc.to_dict() if asset_doc.exists else {'phash': 'UNKNOWN', 'file_path': ''}
         
-        # Handle GCS vs Local paths
-        orig_img = asset['file_path'] if asset['file_path'].startswith('http') else os.path.basename(asset['file_path'])
+        # Use the full GCS URL if it exists, otherwise fallback to filename
+        orig_img = asset.get('file_path', '')
         
         data.append({
             "id": v_doc.id,

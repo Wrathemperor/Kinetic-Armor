@@ -531,22 +531,24 @@ export default function Dashboard() {
               <div style={{ marginBottom: 30 }}>
                 <div className="mono-label" style={{ opacity: 0.5, marginBottom: 16 }}>VISUAL EVIDENCE</div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-                  <div style={{ border: '2px solid black', padding: 10, backgroundColor: '#F9F9F9' }}>
-                    <div className="mono-label" style={{ fontSize: 10, opacity: 0.5, marginBottom: 10 }}>PROTECTED ASSET</div>
-                    <img 
-                      src={selectedStrike.original_image.startsWith('http') ? selectedStrike.original_image : `${API_BASE_URL}/uploads/${selectedStrike.original_image}`} 
-                      alt="Original" 
-                      style={{ width: '100%', height: 120, objectFit: 'cover', border: '1px solid #CCC' }} 
-                    />
-                  </div>
-                  <div style={{ border: '2px solid black', padding: 10, backgroundColor: '#F9F9F9' }}>
-                    <div className="mono-label" style={{ fontSize: 10, color: '#FF4D00', fontWeight: 'bold', marginBottom: 10 }}>INFRINGEMENT FOUND</div>
-                    <img 
-                      src={selectedStrike.found_image.startsWith('http') ? selectedStrike.found_image : `${API_BASE_URL}/uploads/${selectedStrike.found_image}`} 
-                      alt="Infringement" 
-                      style={{ width: '100%', height: 120, objectFit: 'cover', border: '1px solid #FF4D00' }} 
-                    />
-                  </div>
+                    <div style={{ border: '2px solid black', padding: 10, backgroundColor: '#F9F9F9', position: 'relative' }}>
+                      <div className="mono-label" style={{ fontSize: 10, opacity: 0.5, marginBottom: 10 }}>PROTECTED ASSET</div>
+                      <img 
+                        src={selectedStrike.original_image.startsWith('http') ? selectedStrike.original_image : `${API_BASE_URL}/uploads/${selectedStrike.original_image}`} 
+                        alt="Original" 
+                        style={{ width: '100%', height: 120, objectFit: 'contain', backgroundColor: '#eee', border: '1px solid #CCC' }} 
+                      />
+                      <div style={{ position: 'absolute', bottom: 15, right: 15, backgroundColor: '#000', color: '#FFF', padding: '2px 8px', fontSize: 8 }} className="mono-label">VAULT ORIGINAL</div>
+                    </div>
+                    <div style={{ border: '2px solid black', padding: 10, backgroundColor: '#F9F9F9', position: 'relative' }}>
+                      <div className="mono-label" style={{ fontSize: 10, color: '#FF4D00', fontWeight: 'bold', marginBottom: 10 }}>INFRINGEMENT FOUND</div>
+                      <img 
+                        src={selectedStrike.found_image.startsWith('http') ? selectedStrike.found_image : `${API_BASE_URL}/uploads/${selectedStrike.found_image}`} 
+                        alt="Infringement" 
+                        style={{ width: '100%', height: 120, objectFit: 'contain', backgroundColor: '#eee', border: '1px solid #FF4D00' }} 
+                      />
+                      <div style={{ position: 'absolute', bottom: 15, right: 15, backgroundColor: '#FF4D00', color: '#000', padding: '2px 8px', fontSize: 8 }} className="mono-label">LIVE MATCH</div>
+                    </div>
                 </div>
               </div>
 
